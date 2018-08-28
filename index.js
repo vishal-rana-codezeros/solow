@@ -17,8 +17,6 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
 
-
-
 app.post('/register',[middleWare.requiredCheck,middleWare.convertPass],(req,res)=>userAction.createUser(req,res))
 
 app.post('/login',[middleWare.checkLogin],(req,res)=>userAction.checkLogin(req,res))
@@ -34,7 +32,9 @@ app.get('/checkHotel',(req,res)=>userAction.getAvailableHotels(req,res));
 //search flight
 app.post('/checkFlight',[middleWare.makeRequestValid],(req,res)=>userAction.checkflights(req,res));
 
-app.get('/checkCarRent',(req,res)=>userAction.checkCarRental(req,res))
+// app.get('/checkCarRent',(req,res)=>userAction.checkCarRental(req,res))
+
+app.getAllFlights('/getAllFlights',())
 
 app.listen(app.get('port'),()=>{
 console.log(`Server listening on ${app.get('port')}`);

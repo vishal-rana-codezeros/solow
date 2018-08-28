@@ -29,12 +29,19 @@ app.get('/checkUser',[middleWare.checkUser],(req,res)=>userAction.checkUser(req,
 
 app.post('/loginFacebook',[middleWare.checkFbLogin],(req,res)=>userAction.loginFb(req,res));
 
-app.get('/checkHotel',(req,res)=>userAction.getAvailableHotels(req,res));
+//app.get('/checkHotel',(req,res)=>userAction.getAvailableHotels(req,res));
 
-//search flight
-app.post('/checkFlight',[middleWare.makeRequestValid],(req,res)=>userAction.checkflights(req,res));
+// app.post('/checkFlight',[middleWare.makeRequestValid],(req,res)=>userAction.checkflights(req,res));
 
-app.get('/checkCarRent',(req,res)=>userAction.checkCarRental(req,res))
+app.post('/checkHotel',[middleWare.checkHotels],(req,res)=>userAction.checkHotels(req,res));
+app.get('/checkHotel',(req,res)=>userAction.checkHotels(req,res));
+
+app.post('/checkFlight',[middleWare.checkFlights],(req,res)=>userAction.checkFlights(req,res))
+// app.get('/checkFlight',(req,res)=>userAction.checkFlights(req,res));
+
+//app.post('/checkCarRent',[middleWare.checkCarRental],(req,res)=>userAction.checkCarRental(req,res));
+ app.post('/checkCarRent',(req,res)=>userAction.checkCarRental(req,res));
+
 
 app.listen(app.get('port'),()=>{
 console.log(`Server listening on ${app.get('port')}`);

@@ -2,7 +2,8 @@ module.exports ={
    'path':'mongodb://localhost/travel',
 
    'hotwire_key':'f4wze9sdx3m2a4eyee5gx3fa',
-
+   'allmyles_key': 'b0817698-e341',
+   'sabre_key':' ripcg2rlq8d6a5a0',
    "airhob_sandbox" :"fb369274-6ec3-4" ,
    "airhob_prod"  : "bd6407db-243d-4",
    "goibibo_key":"9b2faa94ce59894159a3d85871904cf3",

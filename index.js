@@ -17,8 +17,6 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
 
-
-
 app.post('/register',[middleWare.requiredCheck,middleWare.convertPass],(req,res)=>userAction.createUser(req,res))
 
 app.post('/login',[middleWare.checkLogin],(req,res)=>userAction.checkLogin(req,res))
@@ -41,6 +39,9 @@ app.post('/checkFlight',[middleWare.checkFlights],(req,res)=>userAction.checkFli
 
 //app.post('/checkCarRent',[middleWare.checkCarRental],(req,res)=>userAction.checkCarRental(req,res));
  app.post('/checkCarRent',(req,res)=>userAction.checkCarRental(req,res));
+
+
+// app.get('/checkCarRent',(req,res)=>userAction.checkCarRental(req,res))
 
 
 app.listen(app.get('port'),()=>{

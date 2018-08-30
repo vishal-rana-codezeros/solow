@@ -10,6 +10,12 @@ module.exports ={
    "go_key_kena":"d4a06c710d3fc8ec9d0708fe7b0d60c0",
    "go_id":"ad7aa455",
    "goibibo_id":"b5e7abb9",
-   "goIbibo_base":`http://developer.goibibo.com/api/search/?app_id=${this.go_id}&app_key=${this.go_key_kena}&format=json`
+   "goIbibo_base":`http://developer.goibibo.com/api/search/?app_id=${this.go_id}&app_key=${this.go_key_kena}&format=json`,
+   "token_secret":"secret",
+   "cloudinary_key":"258863858789892",
+   "cloudinary_secret":"ViNYLouXE0Up34R76vXXPDj7lF8",
+   "cloudinary_name":"dizkwji5k",
+   "cloudinary_env_variable":"cloudinary://258863858789892:ViNYLouXE0Up34R76vXXPDj7lF8@dizkwji5k/",
+   "cloudinary_upload_url":"https://api.cloudinary.com/v1_1/dizkwji5k/image/upload"
 
 }

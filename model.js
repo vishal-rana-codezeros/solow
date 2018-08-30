@@ -12,19 +12,22 @@ password:{type:String,required:function(){
 email_id:String,
 country:String,
 gender:{type:String,enum:['Male','Female'],default:'Male'},
-createdAt:{type:Date,default:Date.now},
+isSocialLogin:{type:Boolean ,enum:['true','false']},
+image_url:{type:String},
+image_id:{type:String},
 type:{type:String,enum:['normal','facebook'],default:function(){
   if(this.isSocialLogin){
     return 'facebook'
   }else return 'normal'
 }},
+
 createdAt:{type:Date,default:Date.now},
+
 fb_id:{type:String,required:function(){
   if(this.isSocialLogin)
     return true;
   else return false;
 }},
-isSocialLogin:{type:Boolean},
 status:{type:String,default:'ACTIVE'},
 notify_flag:[{
   order_number:String,

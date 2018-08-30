@@ -1,15 +1,15 @@
 
 const validation = require('./validations')
+var jwt = require('jsonwebtoken');
+var config = require('./config');
 
+var userActions=require('./user_actions');
 function register(req, res, next) {
 
-	let { fullname, username, email_id, password, fb_id, type } = req.body;
+	let { fullname, email_id, password, country } = req.body;
 	let error = [];
 	if (!fullname) {
 		error.push({ code: 500, message: "Full name is required." })
-	}
-	else if (!username) {
-		error.push({ code: 500, message: "User name is required." })
 	}
 	else if (!email_id) {
 		error.push({ code: 500, message: "Email is required." })
@@ -19,27 +19,28 @@ function register(req, res, next) {
 	else if (!validation.validateEmail(email_id)) {
 		error.push({ code: 500, message: "Please provide valid email." })
 	}
-	else if (fb_id) {
-		error.push({ code: 500, message: "Fb id is not required." })
+	else if (!country) {
+		error.push({ code: 500, message: "country is required." })
 	}
-	else if (type && type == 'facebook') {
-		error.push({ code: 500, message: "Type needs to be normal." })
-	}
-
+	// else if (fb_id) {
+	// 	error.push({ code: 500, message: "Fb id is not required." })
+	// }
+	// else if (type && type == 'facebook') {
+	// 	error.push({ code: 500, message: "Type needs to be normal." })
+	// }
 
 	if (error.length > 0) {
 		errors(error, res);
 	} else
 		next();
-
-
 }
 
+
 function checkLogin(req, res, next) {
-	let { username, password } = req.body;
+	let { email_id, password } = req.body;
 	let error = [];
-	if (!username) {
-		error.push({ code: 500, message: "Username is required." })
+	if (!email_id) {
+		error.push({ code: 500, message: "Email is required." })
 	}
 	else if (!password) {
 		error.push({ code: 500, message: "Password is required." })
@@ -66,7 +67,7 @@ function checkUser(req, res, next) {
 
 
 function checkFbLogin(req, res, next) {
-	let { fb_id, type } = req.body;
+	let { fb_id, type, fullname } = req.body;
 	let error = [];
 
 	if (!fb_id) {
@@ -74,6 +75,9 @@ function checkFbLogin(req, res, next) {
 	}
 	else if (!type || type != 'facebook') {
 		error.push({ code: 500, message: "Provide a type." })
+	}
+	else if (!fullname) {
+		error.push({ code: 500, message: "fullname is required" })
 	}
 
 	if (error.length > 0) {
@@ -196,7 +200,23 @@ function checkFlights(req, res, next) {
 		next();
 	}
 }
-
+function verifyToken(req, res, next) {
+	var token = req.headers['authorization'];
+	
+	if (!token)
+		return res.json({ code: 403, message: " Access Forbidden." });
+	else
+		jwt.verify(token, config.token_secret, function (err, data) {
+			if (err){
+				return res.json({ code: 401, message: "Token Invalid or has expired." });
+			}
+			else{
+				 next();
+			}	
+				
+		});
+		
+}
 
 
 
@@ -212,6 +232,7 @@ module.exports = {
 	makeRequestValid: makeRequestValid,
 	checkHotels: checkHotels,
 	checkCarRental: checkCarRental,
-	checkFlights: checkFlights
+	checkFlights: checkFlights,
+	verifyToken:verifyToken
 
 }

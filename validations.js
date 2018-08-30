@@ -10,8 +10,11 @@ function validateEmail(email) {
 }
 
 
-function convertPass(pass){
-		return bcrypt.hash(pass,10);
+async function convertPass(password){
+	let en_pass = await bcrypt.hash(password,10)
+	password = en_pass;
+	console.log("after hash",password);
+	return password
 }
 
 
@@ -21,19 +24,13 @@ var getRandomPassword = function (cb) {
 
 
 
-function mapLogin(data,cb){
+function mapLogin(data,token,cb){
+	
 	return cb({
 		fullname : data.fullname,
-		username: data.username,
-		gender:data.gender,
 		email_id:data.email_id,
-		age:data.age,
-		profession_id:data.profession_id,
-		city_id:data.city_id,
-		religion:data.religion,
-		type:data.type,
-		fb_id:data.fb_id,
-		status:data.status
+		// fb_id:data.fb_id,
+		token:token
 	})
 }
 

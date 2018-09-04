@@ -12,9 +12,10 @@ app.set('port',process.env.PORT || 8090);
 
 mongoose.connect(config.path);
 
-app.use(express.static(__dirname+'/public'))
+app.use(express.static(__dirname+'/public/dist/pluto'))
 app.use(bodyParser.urlencoded({extended:false,limit:'50mb'}));
 app.use(bodyParser.json());
+
 
 
 app.post('/register',[middleWare.requiredCheck,middleWare.convertPass],(req,res)=>userAction.createUser(req,res))
